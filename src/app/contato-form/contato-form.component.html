@@ -1,0 +1,30 @@
+<h1 class="display-4">Contato</h1>
+<form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
+    <input type="hidden" name="id" #id="ngModel" [(ngModel)]="contato.id">
+    <div class="form-group">
+        <input name="nome" #nome="ngModel" [(ngModel)]="contato.nome" class="form-control" placeholder="Nome" required>
+        <div *ngIf="nome.invalid && nome.touched" class="validation-error">Nome é Obrigatório.</div>
+    </div>
+
+    <div class="form-group">
+        <input matInput placeholder="Email" email="ngModel" [(ngModel)]="contato.email" 
+            [errorStateMatcher]="matcher" class="form-control" name="email" #email="ngModel" >
+
+        <div *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+            Digite um email válido.
+        </div>
+        <div *ngIf="emailFormControl.hasError('required')">
+            Email é <strong>Obrigatório</strong>
+        </div>
+    </div>
+    <div class="form-group">
+            <input matInput placeholder="Número do Telefone" mask="(00) 00000-0000" [(ngModel)]="contato.telefone"
+                name="telefone" #telefone="ngModel" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <button type="submit" [disabled]="form.invalid" class="btn btn-lg btn-block btn-info">
+            Salvar </button>
+    </div>
+
+</form>
