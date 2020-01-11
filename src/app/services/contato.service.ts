@@ -2,6 +2,7 @@ import { Contato } from './../models/contato.model';
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'angular-2-local-storage';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,12 +15,10 @@ export class ContatoService {
   }
 
   save(contato: Contato) {
-    if (this.getContatoNome(contato.nome) === null) {
+
+    if (this.localStorage.get(contato.nome) === null) {
       this.localStorage.set(contato.id, contato);
-      this.localStorage.set(contato.nome, contato);
-      
     } else {
-      
       alert("Nome de Contato Já cadastrado");
       return false;
     }
@@ -28,8 +27,8 @@ export class ContatoService {
   getContato(id: string): Contato {
     return this.localStorage.get(id);
   }
-
-  getContatoNome(nome: string): Contato {
+  
+  getContaton(nome: string): Contato {
     return this.localStorage.get(nome);
   }
 
